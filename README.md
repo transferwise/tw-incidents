@@ -1,6 +1,11 @@
 # Tw Incidents
 
-Configuration options are in `IncidentsProperties`.
+![Apache 2](https://img.shields.io/hexpm/l/plug.svg)
+![Java 1.8](https://img.shields.io/badge/Java-1.8-blue.svg)
+
+Allows applications to raise incidents and recover from them.
+
+Configuration options are in [IncidentsProperties](src/main/java/com/transferwise/common/incidents/IncidentsProperties.java)
 
 Engineers have to provide implementations for `IncidentGenerator`s, which are responsible for gathering active incidents.
 
@@ -41,33 +46,49 @@ public class StuckTasksIncidentGenerator implements IncidentGenerator {
 
 ## VictorOps
 
-Configuration options are in `VictorOpsProperties`.
+Configuration options are in [VictorOpsProperties](src/main/java/com/transferwise/common/incidents/victorops/VictorOpsProperties.java).
 
 VictorOps example:
-```
-tw-boot:
-  incidents:
-    victorops:
-      enabled: true
-      notify-base-url: https://alert.victorops.com/integrations/generic/20131114/alert/
-      api-token: '{cipher}MagicNumber123'
-      routing-key: currencies
-      incident-id-prefix: '${spring.application.name}/${lhv-service.node-id}/'
+```yaml
+tw-incidents:
+  victorops:
+    enabled: true
+    notify-base-url: https://alert.victorops.com/integrations/generic/20131114/alert/
+    api-token: '{cipher}MagicNumber123'
+    routing-key: currencies
+    incident-id-prefix: '${spring.application.name}/${partner-service.node-id}/'
 ```
 
 Notes:
 1. The `notify-base-url` is not just an example. This is the url that all the services should use.
-2. You can get the `api-token` [here](https://portal.victorops.com/dash/transferwise/#/advanced/rest) and encrypt it using
-[config-server](https://github.com/transferwise/config-server#encrypting-sensitive-data).
+2. You can get the `api-token` [here](https://portal.victorops.com/dash/transferwise/#/advanced/rest)
+
+## Slack
+
+Configuration options are in [SlackProperties](src/main/java/com/transferwise/common/incidents/slack/SlackProperties.java)
 
 Slack example:
-```
-tw-boot:
-  incidents:
-    slack:
-      enabled: true
-      url=http://hooks.slack.com/...
-      incidentIdPrefix=test-service
+```yaml
+tw-incidents:
+  slack:
+    enabled: true
+    url: http://hooks.slack.com/...
+    incidentIdPrefix: test-service
 ```
 
 During testing, it might be useful to set the `channel` property to your Slack `@username`, so that messages come to you as Slackbot ones.
+
+## License
+Copyright 2019 TransferWise Ltd.
+ 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+ 
+http://www.apache.org/licenses/LICENSE-2.0
+ 
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

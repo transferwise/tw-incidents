@@ -23,7 +23,7 @@ class IncidentsManagerSpec extends Specification {
             incidentsManager.notifiers = []
             incidentsManager.incidentsProperties = new IncidentsProperties()
 
-            incidentsManager.init();
+            incidentsManager.init()
             Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())
             ClockHolder.setClock(clock)
         when:

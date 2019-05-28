@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public class TestIncidentGenerator implements IncidentGenerator {
-    public List<Incident> activeIncidents = new ArrayList<>();
+    public final List<Incident> activeIncidents = new ArrayList<>();
 
     @Override
     public List<Incident> getActiveIncidents() {

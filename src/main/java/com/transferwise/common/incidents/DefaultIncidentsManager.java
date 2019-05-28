@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -109,14 +106,13 @@ public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdo
     protected List<Incident> getActiveIncidents(IncidentGenerator incidentGenerator) {
         List<Incident> gIncidents = incidentGenerator.getActiveIncidents();
 
-        return (gIncidents == null ? Stream.<Incident>empty() : gIncidents.stream()).filter((incident) -> incident != null).map((incident) -> {
+        return (gIncidents == null ? Stream.<Incident>empty() : gIncidents.stream()).filter(Objects::nonNull).peek((incident) -> {
             if (incident.getStartTime() == null) {
                 incident.setStartTime(ZonedDateTime.now(ClockHolder.getClock()));
             }
             if (incident.getId() == null) {
                 incident.setId(UUID.randomUUID().toString());
             }
-            return incident;
         }).collect(Collectors.toList());
     }
 
@@ -133,15 +129,11 @@ public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdo
     }
 
     protected void triggerIncident(Incident incident) {
-        notifiers.forEach((notifier) -> {
-            notifier.triggerIncident(incident);
-        });
+        notifiers.forEach((notifier) -> notifier.triggerIncident(incident));
     }
 
     protected void recoverIncident(Incident incident, boolean isShutdown) {
-        notifiers.forEach((notifier) -> {
-            notifier.recoverIncident(incident, isShutdown);
-        });
+        notifiers.forEach((notifier) -> notifier.recoverIncident(incident, isShutdown));
     }
 
     @Override
@@ -151,7 +143,7 @@ public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdo
                 gatherIncidents();
                 lock.lock();
                 try {
-                    healthy = !incidentGeneratorStates.values().stream().anyMatch((ig) -> !ig.isHealthy());
+                    healthy = incidentGeneratorStates.values().stream().allMatch(IncidentGeneratorState::isHealthy);
                 } finally {
                     lock.unlock();
                 }

@@ -1,12 +1,13 @@
 package com.transferwise.common.incidents.slack;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Builder;
 
 import java.util.List;
 
 @Builder
-@SuppressWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 public class SlackAttachment {
 
     @JsonProperty("color")

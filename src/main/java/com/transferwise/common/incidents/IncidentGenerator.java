@@ -17,6 +17,7 @@ public interface IncidentGenerator {
      * <p>
      * If return null, a generic default (usually 10s) will be used.
      */
+    @SuppressWarnings("SameReturnValue")
     default Duration getPollingInterval() {
         return null;
     }
