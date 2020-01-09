@@ -28,11 +28,6 @@ public class IncidentsAutoConfiguration {
     }
 
     @Bean
-    public IncidentsHealthIndicator incidentsHealthIndicator() {
-        return new IncidentsHealthIndicator();
-    }
-
-    @Bean
     @Qualifier("VictorOps")
     @ConditionalOnProperty(value = "tw-incidents.victorops.enabled")
     public RestTemplate victorOpsRestTemplate(RestTemplateBuilder restTemplateBuilder) {
