@@ -1,7 +1,8 @@
 # Tw Incidents
 
 ![Apache 2](https://img.shields.io/hexpm/l/plug.svg)
-![Java 1.8](https://img.shields.io/badge/Java-1.8-blue.svg)
+![Java 11](https://img.shields.io/badge/Java-11-blue.svg)
+![Maven Central](https://badgen.net/maven/v/maven-central/com.transferwise.common/tw-incidents)
 
 Allows applications to raise incidents and recover from them.
 
@@ -79,7 +80,7 @@ tw-incidents:
 During testing, it might be useful to set the `channel` property to your Slack `@username`, so that messages come to you as Slackbot ones.
 
 ## License
-Copyright 2019 TransferWise Ltd.
+Copyright 2021 TransferWise Ltd.
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
