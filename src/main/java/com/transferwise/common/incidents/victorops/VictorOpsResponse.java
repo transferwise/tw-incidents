@@ -9,12 +9,13 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VictorOpsResponse {
-    @JsonProperty("entity_id")
-    private String entityId;
-    @JsonProperty("result")
-    private String result;
 
-    public enum Result {
-        SUCCESS, FAILURE
-    }
+  @JsonProperty("entity_id")
+  private String entityId;
+  @JsonProperty("result")
+  private String result;
+
+  public enum Result {
+    SUCCESS, FAILURE
+  }
 }

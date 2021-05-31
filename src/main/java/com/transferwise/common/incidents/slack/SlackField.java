@@ -8,6 +8,6 @@ import lombok.Builder;
 @SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 public class SlackField {
 
-    @JsonProperty("title")
-    public String title;
+  @JsonProperty("title")
+  public String title;
 }

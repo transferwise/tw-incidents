@@ -17,54 +17,55 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnProperty(value = "tw-incidents.enabled", matchIfMissing = true)
 @EnableConfigurationProperties({IncidentsProperties.class, VictorOpsProperties.class, SlackProperties.class})
 public class IncidentsAutoConfiguration {
-    @Autowired
-    private VictorOpsProperties victorOpsProperties;
-    @Autowired
-    private SlackProperties slackProperties;
 
-    @Bean
-    public DefaultIncidentsManager incidentsManager() {
-        return new DefaultIncidentsManager();
-    }
+  @Autowired
+  private VictorOpsProperties victorOpsProperties;
+  @Autowired
+  private SlackProperties slackProperties;
 
-    @Bean
-    public IncidentsHealthIndicator incidentsHealthIndicator() {
-        return new IncidentsHealthIndicator();
-    }
+  @Bean
+  public DefaultIncidentsManager incidentsManager() {
+    return new DefaultIncidentsManager();
+  }
 
-    @Bean
-    @Qualifier("VictorOps")
-    @ConditionalOnProperty(value = "tw-incidents.victorops.enabled")
-    public RestTemplate victorOpsRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.setConnectTimeout(victorOpsProperties.getConnectTimeout())
-                .setReadTimeout(victorOpsProperties.getReadTimeout()).build();
-    }
+  @Bean
+  public IncidentsHealthIndicator incidentsHealthIndicator() {
+    return new IncidentsHealthIndicator();
+  }
 
-    @Bean
-    @ConditionalOnProperty(value = "tw-incidents.victorops.enabled")
-    public VictorOpsIncidentNotifier victorOpsIncidentNotifier() {
-        return new VictorOpsIncidentNotifier();
-    }
+  @Bean
+  @Qualifier("VictorOps")
+  @ConditionalOnProperty(value = "tw-incidents.victorops.enabled")
+  public RestTemplate victorOpsRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+    return restTemplateBuilder.setConnectTimeout(victorOpsProperties.getConnectTimeout())
+        .setReadTimeout(victorOpsProperties.getReadTimeout()).build();
+  }
 
-
-    @Bean
-    @Qualifier("Slack")
-    @ConditionalOnProperty(value = "tw-incidents.slack.enabled")
-    public RestTemplate slackRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.setConnectTimeout(slackProperties.getConnectTimeout())
-                .setReadTimeout(slackProperties.getReadTimeout()).build();
-    }
-
-    @Bean
-    @ConditionalOnProperty(value = "tw-incidents.slack.enabled")
-    public SlackIncidentNotifier slackIncidentNotifier() {
-        return new SlackIncidentNotifier();
-    }
+  @Bean
+  @ConditionalOnProperty(value = "tw-incidents.victorops.enabled")
+  public VictorOpsIncidentNotifier victorOpsIncidentNotifier() {
+    return new VictorOpsIncidentNotifier();
+  }
 
 
-    @Bean
-    public LoggingIncidentNotifier loggingIncidentNotifier() {
-        return new LoggingIncidentNotifier();
-    }
+  @Bean
+  @Qualifier("Slack")
+  @ConditionalOnProperty(value = "tw-incidents.slack.enabled")
+  public RestTemplate slackRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+    return restTemplateBuilder.setConnectTimeout(slackProperties.getConnectTimeout())
+        .setReadTimeout(slackProperties.getReadTimeout()).build();
+  }
+
+  @Bean
+  @ConditionalOnProperty(value = "tw-incidents.slack.enabled")
+  public SlackIncidentNotifier slackIncidentNotifier() {
+    return new SlackIncidentNotifier();
+  }
+
+
+  @Bean
+  public LoggingIncidentNotifier loggingIncidentNotifier() {
+    return new LoggingIncidentNotifier();
+  }
 
 }

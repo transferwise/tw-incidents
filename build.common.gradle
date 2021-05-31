@@ -1,0 +1,81 @@
+apply plugin: 'java-library'
+apply plugin: 'groovy'
+apply plugin: 'checkstyle'
+apply plugin: 'com.github.spotbugs'
+
+group = 'com.transferwise.common'
+ext.springBootVersion = "2.3.11.RELEASE"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    annotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+    testAnnotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.3'
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.3'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+    withJavadocJar()
+}
+
+jar {
+    manifest {
+        attributes(
+                "Implementation-Title": "Transferwise Base Utils",
+                "Implementation-Version": archiveVersion
+        )
+    }
+}
+
+compileJava {
+    options.encoding = 'utf-8'
+    options.compilerArgs << '-parameters'
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+        showStackTraces = true
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.findAll { it.name.startsWith("spotbugs") }*.configure {
+    effort = "max"
+
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+spotbugs {
+    spotbugsTest.enabled = false
+}
+
+tasks.withType(Checkstyle) {
+    config = resources.text.fromFile(file('google_checks.xml'))
+
+    maxWarnings = 0
+
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
