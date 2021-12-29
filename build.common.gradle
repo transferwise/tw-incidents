@@ -4,7 +4,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'com.github.spotbugs'
 
 group = 'com.transferwise.common'
-ext.springBootVersion = "2.3.11.RELEASE"
+ext.springBootVersion = "2.5.8"
 
 repositories {
     mavenCentral()
@@ -58,10 +58,10 @@ test {
 
 tasks.findAll { it.name.startsWith("spotbugs") }*.configure {
     effort = "max"
-
+    excludeFilter = file('spotbugs-exclude.xml')
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = true
+        html.required = true
     }
 }
 
@@ -75,7 +75,7 @@ tasks.withType(Checkstyle) {
     maxWarnings = 0
 
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = true
+        html.required = true
     }
 }
