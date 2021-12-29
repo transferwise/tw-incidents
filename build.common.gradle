@@ -4,7 +4,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'com.github.spotbugs'
 
 group = 'com.transferwise.common'
-ext.springBootVersion = "2.3.11.RELEASE"
+ext.springBootVersion = "2.5.8"
 
 repositories {
     mavenCentral()
@@ -12,10 +12,10 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
-    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
-    testAnnotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+    annotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}!!"))
+    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}!!"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}!!"))
+    testAnnotationProcessor(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}!!"))
 
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -49,6 +49,8 @@ compileJava {
 }
 
 test {
+    useJUnitPlatform()
+
     testLogging {
         events "passed", "skipped", "failed", "standardError"
         showStackTraces = true
@@ -58,10 +60,10 @@ test {
 
 tasks.findAll { it.name.startsWith("spotbugs") }*.configure {
     effort = "max"
-
+    excludeFilter = file('spotbugs-exclude.xml')
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = true
+        html.required = true
     }
 }
 
@@ -75,7 +77,7 @@ tasks.withType(Checkstyle) {
     maxWarnings = 0
 
     reports {
-        xml.enabled false
-        html.enabled true
+        xml.required = true
+        html.required = true
     }
 }
