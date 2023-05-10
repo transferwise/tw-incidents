@@ -1,0 +1,29 @@
+ext.projectName = 'TransferWise Incidents Registration System'
+ext.projectDescription = 'TransferWise Incidents Registration System - uses VictorOps model to register and unregister incidents.'
+ext.projectGitHubRepoName = 'tw-incidents'
+ext.projectArtifactName = 'tw-incidents'
+
+apply from: "${project.rootDir}/build.common.gradle"
+apply from: "${project.rootDir}/build.publishing.gradle"
+
+dependencies {
+    compileOnly libraries.springBootAutoConfigure
+    compileOnly libraries.springBootActuator
+    compileOnly libraries.springWeb
+
+    implementation libraries.slf4jApi
+    implementation libraries.twGracefulShutdownInterfaces
+    implementation libraries.twBaseUtils
+    implementation libraries.jacksonAnnotations
+    implementation libraries.jacksonDatabind
+    implementation libraries.commonsLang3
+
+    testImplementation libraries.springBootStarterTest
+    testImplementation libraries.springBootStarterWeb
+    testImplementation libraries.springBootStarterActuator
+    testImplementation libraries.spockSpring
+    testImplementation libraries.awaitility
+
+    testRuntimeOnly libraries.twGracefulShutdown
+
+}
