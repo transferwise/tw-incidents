@@ -18,14 +18,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.PostConstruct;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdownStrategy {
+public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdownStrategy, InitializingBean {
 
   @Autowired
   private List<IncidentNotifier> notifiers;
@@ -44,8 +44,8 @@ public class DefaultIncidentsManager implements IncidentsManager, GracefulShutdo
 
   private Thread onShutdownIncidentsReleasingThread;
 
-  @PostConstruct
-  public void init() {
+  @Override
+  public void afterPropertiesSet() {
     incidentGeneratorStates = new ConcurrentHashMap<>();
     for (IncidentGenerator incidentGenerator : incidentGenerators) {
       log.info("Registering incident generator '" + incidentGenerator + "'.");

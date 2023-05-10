@@ -6,7 +6,7 @@
 
 Allows applications to raise incidents and recover from them.
 
-Configuration options are in [IncidentsProperties](src/main/java/com/transferwise/common/incidents/IncidentsProperties.java)
+Configuration options are in [IncidentsProperties](tw-incidents/src/main/java/com/transferwise/common/incidents/IncidentsProperties.java)
 
 Engineers have to provide implementations for `IncidentGenerator`s, which are responsible for gathering active incidents.
 
@@ -47,7 +47,7 @@ public class StuckTasksIncidentGenerator implements IncidentGenerator {
 
 ## VictorOps
 
-Configuration options are in [VictorOpsProperties](src/main/java/com/transferwise/common/incidents/victorops/VictorOpsProperties.java).
+Configuration options are in [VictorOpsProperties](tw-incidents/src/main/java/com/transferwise/common/incidents/victorops/VictorOpsProperties.java).
 
 VictorOps example:
 ```yaml
@@ -66,7 +66,7 @@ Notes:
 
 ## Slack
 
-Configuration options are in [SlackProperties](src/main/java/com/transferwise/common/incidents/slack/SlackProperties.java)
+Configuration options are in [SlackProperties](tw-incidents/src/main/java/com/transferwise/common/incidents/slack/SlackProperties.java)
 
 Slack example:
 ```yaml

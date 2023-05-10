@@ -1,1 +1,3 @@
 rootProject.name = 'tw-incidents'
+
+include 'tw-incidents'
