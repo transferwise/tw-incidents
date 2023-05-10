@@ -45,7 +45,7 @@ class IncidentsIntSpec extends Specification {
     }
 
     def cleanup() {
-        testIncidentGenerator.activeIncidents.clear()
+        testIncidentGenerator.getActiveIncidents().clear()
         testIncidentNotifier.openIncidents.clear()
     }
 
