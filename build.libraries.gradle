@@ -5,7 +5,7 @@ ext {
             // version defined
             awaitility                      : 'org.awaitility:awaitility:4.2.0',
             spotbugsAnnotations             : "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}",
-            spockSpring                     : 'org.spockframework:spock-spring:2.3-groovy-4.0',
+            spockSpring                     : 'org.spockframework:spock-spring:2.4-M1-groovy-4.0',
 
             springBootDependencies          : "org.springframework.boot:spring-boot-dependencies:${springBootVersion}",
             twGracefulShutdown              : 'com.transferwise.common:tw-graceful-shutdown:2.11.0',
