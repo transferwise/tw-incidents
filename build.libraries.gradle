@@ -8,9 +8,9 @@ ext {
             spockSpring                     : 'org.spockframework:spock-spring:2.4-M1-groovy-4.0',
 
             springBootDependencies          : "org.springframework.boot:spring-boot-dependencies:${springBootVersion}",
-            twGracefulShutdown              : 'com.transferwise.common:tw-graceful-shutdown:2.11.0',
-            twGracefulShutdownInterfaces    : 'com.transferwise.common:tw-graceful-shutdown-interfaces:2.11.0',
-            twBaseUtils                     : 'com.transferwise.common:tw-base-utils:1.10.1',
+            twGracefulShutdown              : 'com.transferwise.common:tw-graceful-shutdown:2.14.2',
+            twGracefulShutdownInterfaces    : 'com.transferwise.common:tw-graceful-shutdown-interfaces:2.14.2',
+            twBaseUtils                     : 'com.transferwise.common:tw-base-utils:1.12.4',
 
             // versions managed by spring-boot-dependencies platform
             commonsLang3                    : 'org.apache.commons:commons-lang3',
