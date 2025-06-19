@@ -1,5 +1,5 @@
 ext {
-    springBootVersion = "${System.getenv("SPRING_BOOT_VERSION") ?: '3.3.1'}"
+    springBootVersion = "${System.getenv("SPRING_BOOT_VERSION") ?: '3.5.0'}"
 
     libraries = [
             // version defined
@@ -25,5 +25,6 @@ ext {
             springBootStarterTest           : 'org.springframework.boot:spring-boot-starter-test',
             springBootStarterWeb            : 'org.springframework.boot:spring-boot-starter-web',
             springWeb                       : 'org.springframework:spring-web',
+            junitPlatformLauncher           : 'org.junit.platform:junit-platform-launcher',
     ]
 }
