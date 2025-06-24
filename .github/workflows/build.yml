@@ -82,7 +82,7 @@ jobs:
           tar -zcvf all-test-reports-${{ matrix.spring_boot_version }}.tar.gz **/build/reports
         if: always()
       - name: "Store test results"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: all-test-reports-${{ matrix.spring_boot_version }}
@@ -105,7 +105,7 @@ jobs:
       - name: "Install packages"
         run: apt-get update && apt-get install -y git unzip
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
