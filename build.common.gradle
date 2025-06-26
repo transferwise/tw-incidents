@@ -45,6 +45,7 @@ dependencies {
     annotationProcessor libraries.springBootConfigurationProcessor
     testCompileOnly libraries.lombok
     testAnnotationProcessor libraries.lombok
+    testRuntimeOnly libraries.junitPlatformLauncher
 
     compileOnly libraries.spotbugsAnnotations
 }
